@@ -126,6 +126,14 @@ test_expect_success 'die the same branch is already checked out' '
 	)
 '
 
+test_expect_success 'refuse to reset a branch in use elsewhere' '
+	(
+		cd here &&
+		test_must_fail git checkout -B newmain 2>actual &&
+		grep "already used by worktree at" actual
+	)
+'
+
 test_expect_success SYMLINKS 'die the same branch is already checked out (symlink)' '
 	head=$(git -C there rev-parse --git-path HEAD) &&
 	ref=$(git -C there symbolic-ref HEAD) &&
