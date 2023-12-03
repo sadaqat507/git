@@ -24,7 +24,6 @@
 #include "read-cache-ll.h"
 #include "refs.h"
 #include "revision.h"
-#include "sequencer.h"
 #include "setup.h"
 #include "strvec.h"
 #include "tree.h"
