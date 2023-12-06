@@ -1941,11 +1941,9 @@ static void create_reference_database(const char *initial_branch, int quiet)
 
 static int create_default_files(const char *template_path,
 				const char *original_git_dir,
-				const char *initial_branch,
 				const struct repository_format *fmt,
 				int prev_bare_repository,
-				int init_shared_repository,
-				int quiet)
+				int init_shared_repository)
 {
 	struct stat st1;
 	struct strbuf buf = STRBUF_INIT;
@@ -2016,7 +2014,6 @@ static int create_default_files(const char *template_path,
 		adjust_shared_perm(get_git_dir());
 	}
 
-	create_reference_database(initial_branch, quiet);
 	initialize_repository_version(fmt->hash_algo, 0);
 
 	/* Check filemode trustability */
@@ -2176,11 +2173,11 @@ int init_db(const char *git_dir, const char *real_git_dir,
 	validate_hash_algorithm(&repo_fmt, hash);
 
 	reinit = create_default_files(template_dir, original_git_dir,
-				      initial_branch, &repo_fmt,
-				      prev_bare_repository,
-				      init_shared_repository,
-				      flags & INIT_DB_QUIET);
+				      &repo_fmt, prev_bare_repository,
+				      init_shared_repository);
 
+	if (!(flags & INIT_DB_SKIP_REFDB))
+		create_reference_database(initial_branch, flags & INIT_DB_QUIET);
 	create_object_directory();
 
 	if (get_shared_repository()) {
