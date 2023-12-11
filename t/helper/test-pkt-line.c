@@ -1,6 +1,7 @@
 #include "git-compat-util.h"
 #include "test-tool.h"
 #include "pkt-line.h"
+#include "sideband.h"
 #include "write-or-die.h"
 #include "parse-options.h"
 

@@ -1,8 +1,8 @@
 #include "test-tool.h"
+#include "config-parse.h"
 #include "strvec.h"
 #include "run-command.h"
 #include "exec-cmd.h"
-#include "config.h"
 #include "repository.h"
 #include "trace2.h"
 
